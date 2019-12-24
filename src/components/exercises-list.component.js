@@ -44,7 +44,7 @@ export default class ExercisesList extends Component {
         axios.delete(this.DELETE_EXERCISE + id)
         .then(res => console.log(res.data));
         
-        this.state({
+        this.setState({
             exercises: this.state.exercises.filter(el => el._id !== id)
         })
     }
