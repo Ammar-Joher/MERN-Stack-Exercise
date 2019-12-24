@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../css/styles.css"
 
 const Exercise = props => (
     <tr>
@@ -57,7 +58,7 @@ export default class ExercisesList extends Component {
 
     render() {
         return (
-            <div>
+            <div className="page-spacing">
                 <h3>Logged Exercises</h3>
                 <table className="table">
                 <thead className="thead-light">
