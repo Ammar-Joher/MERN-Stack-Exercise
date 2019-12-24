@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class CreateExercise extends Component {
+    CREATE_EXERCISE_API = "http://localhost:5000/exercises/add";
+    GET_ALL_USERS_API = "http://localhost:5000/users/";
+
     constructor(props) {
         super(props);
 
@@ -22,9 +26,14 @@ export default class CreateExercise extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            users: ['test user'],
-            username: 'Test User'
+        axios.get(this.GET_ALL_USERS_API)
+        .then(res => {
+            if (res.data.length > 0) {
+                this.setState({
+                    users: res.data.map(user => user.username),
+                    username: res.data[0].username
+                })
+            }
         })
     }
 
@@ -61,8 +70,9 @@ export default class CreateExercise extends Component {
             duration: this.state.duration,
             date: this.state.date
         }
-
-        console.log(exercise)
+        
+        axios.post(this.CREATE_EXERCISE_API, exercise)
+        .then(res => console.log(res.data));
 
         window.location = '/'
     }
